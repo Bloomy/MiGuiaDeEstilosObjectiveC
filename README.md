@@ -43,7 +43,7 @@ Los comentarios no pueden maquillar el mal código. Sólo se usarán comentarios
 
 En los comentarios de documentación (`/** ... */`, `/*! ... */` y `///`) se emplearán, en caso de ser necesarios, los comandos Doxygen `@brief`, `@param`, `@return` y `@note`.
 
-Los comentarios que añadamos deberán estar *al día* o bien ser eliminados.
+Los comentarios que añadamos deberán **siempre al día** o bien ser eliminados.
 
 ### Métodos vacíos
 Se borrará cualquier método vacío.
@@ -55,22 +55,23 @@ En la medida de lo posible, a efectos de legibilidad, en los flujos condicionale
 
 	- (void)someMethod
 	{
-	  if ([someOther boolValue]) {
-	    //Do something important
-	  } else {
-	    //Do something else important
-	  }
+	    if ([someOther boolValue]) {
+	        //Do something important
+	    } 
+            else {
+	        //Do something else important
+	    }
 	}
 	
 Estaría mejor escrito de la siguiente forma:
 
 	- (void)someMethod
 	{
-	  if ([someOther boolValue]) {
-	    //Do something important
-	    return;
-	  }
-	  //Do something else important
+	    if ([someOther boolValue]) {
+	        //Do something important
+	        return;
+	    }
+	    //Do something else important
 	}
 
 ### Expresiones booleanas
