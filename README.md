@@ -33,7 +33,7 @@ Usaré la siguiente estructura, que estará en sintonía con el sistema de archi
 	Frameworks/
 
 ### Formateo
-Para formatear el código usaré la herramienta Uncrustify. En Github están colgadas [**mis reglas de estilo actuales**](../MyUncrustifyObjcStyle.cfg). La mayoría de ellas fueron descritas en las guías de [Apple](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html) y [Google](http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml). Al respecto, algunas anotaciones:
+Para formatear el código usaré la herramienta Uncrustify. En Github están colgadas [**mis reglas de estilo actuales**](../OrlandoAlemanObjcStyle.cfg). La mayoría de ellas fueron descritas en las guías de [Apple](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html) y [Google](http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml). Al respecto, algunas anotaciones:
 
 * El código se identa con 4 espacios y sin tabuladores. 
 * Es preferible no partir las líneas. XCode ya ofrece esa funcionalidad de forma virtual, sin alterar el código.
@@ -58,7 +58,7 @@ En la medida de lo posible, a efectos de legibilidad, en los flujos condicionale
 	    if ([someOther boolValue]) {
 	        //Do something important
 	    } 
-            else {
+        else {
 	        //Do something else important
 	    }
 	}
