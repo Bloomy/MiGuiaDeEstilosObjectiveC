@@ -142,10 +142,14 @@ Las reglas a seguir son:
 * Nombres largos y descriptivos mejor que cortos y crípticos. Un buen nombre da mucha más información que cualquier otra cosa. Una buen nombre es aquél con el que se puede inferir su comportamiento de un solo vistazo.
 * Se deben seguir las convenciones de Apple, especialmente con relación a la gestión de memoria (`init`, `new`, `alloc`, `copy`).
 
+
+### XIB
+Siempre que se utilice un UIViewController en combinación con XIBs, no se tiene que especificar el nombre del archivo de xib salvo que estés haciendo algo poco común. UIViewController trata de buscarlo a partir del propio nombre de la clase.
+
+
 ### Propiedades
 
 * Las propiedades son, por defecto, *strong*. Por tanto, evitaremos especificarlo.
-
 
 #### Síntesis
 Eludiremos utilizar `@synthetize`, puesto que resulta redundante.
@@ -184,7 +188,6 @@ Es conveniente también que los protocolos sean declarados en su propio fichero 
 
 ### Notificaciones
 Las notificaciones deberían seguir la misma notación que los métodos delegados y muy posiblemente su ejecución esté relacionada.
-
 
 ## Referencias
 
