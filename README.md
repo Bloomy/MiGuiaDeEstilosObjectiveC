@@ -96,6 +96,22 @@ Sus equivalentes aceptados serían:
 
 ### Bloques
 
+En la mayoría de casos preferiremos utilizar blocks en lugar de delegación o hilos. Con Grand Central Dispatch la implementación y legibilidad del código es mayor.
+
+Un detalle a tener en cuenta es que los bloques automaticamente capturan el contexto y retienen cualquier tipo de objecto que sea utilizado dentro de ellos. Así que hay que tener cuidado de no romper el _retain cycle_ ([explicación aquí](http://zearfoss.wordpress.com/2012/05/11/a-quick-gotcha-about-blocks/)).
+
+Por ejemplo, si dentro de un bloque nos referimos a self (usando ARC) hemos de hacer lo siguiente:
+
+	- (void)viewDidLoad
+	{
+	    [super viewDidLoad];
+	    tapBlockView = [[TapBlockView alloc] initWithFrame:CGRectZero];
+	    __weak typeof (self) weakself = self;
+	    [tapBlockView setTapBlock:^(void) {
+	        weakself.someLabel.text = @"You tapped it!";
+	    }];
+	}
+
 
 ### Literales
 Emplear las nuevas expresiones literales. Mejoran muchísimo la legibilidad del código. [Detalles aquí](http://ijoshsmith.com/2012/07/29/objective-c-literals-for-ios-in-xcode-4-4/).
@@ -143,10 +159,6 @@ Las reglas a seguir son:
 * Se deben seguir las convenciones de Apple, especialmente con relación a la gestión de memoria (`init`, `new`, `alloc`, `copy`).
 
 
-### XIB
-Siempre que se utilice un UIViewController en combinación con XIBs, no se tiene que especificar el nombre del archivo de xib salvo que estés haciendo algo poco común. UIViewController trata de buscarlo a partir del propio nombre de la clase.
-
-
 ### Propiedades
 
 * Las propiedades son, por defecto, *strong*. Por tanto, evitaremos especificarlo.
@@ -189,6 +201,29 @@ Es conveniente también que los protocolos sean declarados en su propio fichero 
 ### Notificaciones
 Las notificaciones deberían seguir la misma notación que los métodos delegados y muy posiblemente su ejecución esté relacionada.
 
+### View controllers
+Mantener los controladores de vista ligeros.
+
+* [Esta guía de Objc.io](http://www.objc.io/issue-1/lighter-view-controllers.html) explica muy bien algunas técnicas para aligerar y reutilizar los controladores de vistas.
+
+
+## Hilos
+	"A programmer had a problem, so he used threads, then he had two"
+	
+Evitaré a toda costa usar hilos. Usaré GCD.
+
+* Para repasar conceptos, una buena guía sobre concurrrencia es [esta entrega de * Objc.io](http://www.objc.io/issue-2/).
+
+
+
+## StoryBoards y XIB
+* StoryBoards y XIB sólo para layouts muy básicos o prototipos rápidos.
+
+* Siempre que se utilice un UIViewController en combinación con XIBs, no se tiene que especificar el nombre del archivo de xib salvo que estés haciendo algo poco común. UIViewController trata de buscarlo a partir del propio nombre de la clase.
+
+	
+
+
 ## Referencias
 
 Para redactar este documento me he inspirado en varios escritos que consulto con cierta frecuencia. Es más que conveniente echarles una lectura.
@@ -198,5 +233,7 @@ Para redactar este documento me he inspirado en varios escritos que consulto con
 * [Síntesis de "Clean Code"](http://tratandodeentenderlo.blogspot.com.es/2011/01/clean-code.html)
 * ["API Design" by Matt Gemmell](http://mattgemmell.com/2012/05/24/api-design/)
 * ["Cocoa Style for Objective-C"](http://www.cocoadevcentral.com/articles/000082.php)
+- [Using Blocks in iOS 4: The Basics](http://pragmaticstudio.com/blog/2010/7/28/ios4-blocks-1)
+- [Objc.io, A periodical about best practices and advanced techniques in Objective-C](http://www.objc.io)
 
 

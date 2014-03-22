@@ -343,7 +343,7 @@ Frameworks/
 
 <h3>Formateo</h3>
 
-<p>Para formatear el código usaré la herramienta Uncrustify. En Github están colgadas <a href="../MyUncrustifyObjcStyle.cfg"><strong>mis reglas de estilo actuales</strong></a>. La mayoría de ellas fueron descritas en las guías de <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html">Apple</a> y <a href="http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml">Google</a>. Al respecto, algunas anotaciones:</p>
+<p>Para formatear el código usaré la herramienta Uncrustify. En Github están colgadas <a href="./OrlandoAlemanObjcStyle.cfg"><strong>mis reglas de estilo actuales</strong></a>. La mayoría de ellas fueron descritas en las guías de <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html">Apple</a> y <a href="http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml">Google</a>. Al respecto, algunas anotaciones:</p>
 
 <ul>
 <li>El código se identa con 4 espacios y sin tabuladores.</li>
@@ -357,7 +357,7 @@ Frameworks/
 
 <p>En los comentarios de documentación (<code>/** ... */</code>, <code>/*! ... */</code> y <code>///</code>) se emplearán, en caso de ser necesarios, los comandos Doxygen <code>@brief</code>, <code>@param</code>, <code>@return</code> y <code>@note</code>.</p>
 
-<p>Los comentarios que añadamos deberán estar <em>al día</em> o bien ser eliminados.</p>
+<p>Los comentarios que añadamos deberán <strong>siempre al día</strong> o bien ser eliminados.</p>
 
 <h3>Métodos vacíos</h3>
 
@@ -369,11 +369,12 @@ Frameworks/
 
 <pre><code>- (void)someMethod
 {
-  if ([someOther boolValue]) {
-    //Do something important
-  } else {
-    //Do something else important
-  }
+    if ([someOther boolValue]) {
+        //Do something important
+    } 
+    else {
+        //Do something else important
+    }
 }
 </code></pre>
 
@@ -381,11 +382,11 @@ Frameworks/
 
 <pre><code>- (void)someMethod
 {
-  if ([someOther boolValue]) {
-    //Do something important
-    return;
-  }
-  //Do something else important
+    if ([someOther boolValue]) {
+        //Do something important
+        return;
+    }
+    //Do something else important
 }
 </code></pre>
 
@@ -414,6 +415,23 @@ if (![someObject boolValue]) ...
 
 
 <h3>Bloques</h3>
+
+<p>En la mayoría de casos preferiremos utilizar blocks en lugar de delegación o hilos. Con Grand Central Dispatch la implementación y legibilidad del código es mayor.</p>
+
+<p>Un detalle a tener en cuenta es que los bloques automaticamente capturan el contexto y retienen cualquier tipo de objecto que sea utilizado dentro de ellos. Así que hay que tener cuidado de no romper el <em>retain cycle</em> (<a href="http://zearfoss.wordpress.com/2012/05/11/a-quick-gotcha-about-blocks/">explicación aquí</a>).</p>
+
+<p>Por ejemplo, si dentro de un bloque nos referimos a self (usando ARC) hemos de hacer lo siguiente:</p>
+
+<pre><code>- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    tapBlockView = [[TapBlockView alloc] initWithFrame:CGRectZero];
+    __weak typeof (self) weakself = self;
+    [tapBlockView setTapBlock:^(void) {
+        weakself.someLabel.text = @"You tapped it!";
+    }];
+}
+</code></pre>
 
 <h3>Literales</h3>
 
@@ -518,6 +536,35 @@ El comportamiento por defecto para "writeable properties" es generar automática
 
 <p>Las notificaciones deberían seguir la misma notación que los métodos delegados y muy posiblemente su ejecución esté relacionada.</p>
 
+<h3>View controllers</h3>
+
+<p>Mantener los controladores de vista ligeros.</p>
+
+<ul>
+<li><a href="http://www.objc.io/issue-1/lighter-view-controllers.html">Esta guía de Objc.io</a> explica muy bien algunas técnicas para aligerar y reutilizar los controladores de vistas.</li>
+</ul>
+
+
+<h2>Hilos</h2>
+
+<pre><code>"A programmer had a problem, so he used threads, then he had two"
+</code></pre>
+
+<p>Evitaré a toda costa usar hilos. Usaré GCD.</p>
+
+<ul>
+<li>Para repasar conceptos, una buena guía sobre concurrrencia es <a href="http://www.objc.io/issue-2/">esta entrega de * Objc.io</a>.</li>
+</ul>
+
+
+<h2>StoryBoards y XIB</h2>
+
+<ul>
+<li><p>StoryBoards y XIB sólo para layouts muy básicos o prototipos rápidos.</p></li>
+<li><p>Siempre que se utilice un UIViewController en combinación con XIBs, no se tiene que especificar el nombre del archivo de xib salvo que estés haciendo algo poco común. UIViewController trata de buscarlo a partir del propio nombre de la clase.</p></li>
+</ul>
+
+
 <h2>Referencias</h2>
 
 <p>Para redactar este documento me he inspirado en varios escritos que consulto con cierta frecuencia. Es más que conveniente echarles una lectura.</p>
@@ -528,6 +575,8 @@ El comportamiento por defecto para "writeable properties" es generar automática
 <li><a href="http://tratandodeentenderlo.blogspot.com.es/2011/01/clean-code.html">Síntesis de "Clean Code"</a></li>
 <li><a href="http://mattgemmell.com/2012/05/24/api-design/">"API Design" by Matt Gemmell</a></li>
 <li><a href="http://www.cocoadevcentral.com/articles/000082.php">"Cocoa Style for Objective-C"</a></li>
+<li><a href="http://pragmaticstudio.com/blog/2010/7/28/ios4-blocks-1">Using Blocks in iOS 4: The Basics</a></li>
+<li><a href="http://www.objc.io">Objc.io, A periodical about best practices and advanced techniques in Objective-C</a></li>
 </ul>
 
 <div class="footnotes">
