@@ -208,7 +208,7 @@ Mantener los controladores de vista ligeros.
 
 
 ## Hilos
-	"A programmer had a problem, so he used threads, then he had two"
+> A programmer had a problem, so he used threads, then he had two
 	
 Evitaré a toda costa usar hilos. Usaré GCD.
 
