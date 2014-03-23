@@ -121,6 +121,10 @@ Emplear las nuevas expresiones literales. Mejoran muchísimo la legibilidad del 
 
 Todos los valores literales y especiales deben ser especificados bien como #define o bien como constantes. Es decir, hay que hacerlos presentables, fácilmente accesibles y entendibles.
 
+### NSLog en entornos de 32+64 bits 
+> NSInteger and NSUInteger in a mixed 64bit / 32bit environment
+
+Dado que NSInteger (= int en 32bit, long en 64bit) and NSUInteger (= unsigned int en 32bit, unsigned long en 64bit), la forma de manejar indistintamente es wrappear con @() y usar "%@".
 
 ## Gestión de memoria
 Utilizar ARC.
