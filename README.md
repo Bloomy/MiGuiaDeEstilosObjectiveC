@@ -14,8 +14,11 @@ Usaré la siguiente estructura, que estará en sintonía con el sistema de archi
 		AppDelegate.h			/* Nombre obligatorio */
 		AppDelegate.m
 		Controllers/
+			Delegates/
 		Models/
+			Delegates/		
 		Views/
+			Delegates/		
 	Supporting/
 		Preffix.pch				/* Nombre obligatorio */
 		main.m
