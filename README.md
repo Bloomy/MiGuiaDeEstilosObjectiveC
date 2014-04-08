@@ -219,7 +219,7 @@ Mantener los controladores de vista ligeros.
 	
 Evitaré a toda costa usar hilos. Usaré GCD.
 
-* Para repasar conceptos, una buena guía sobre concurrrencia es [esta entrega de * Objc.io](http://www.objc.io/issue-2/).
+* Para repasar conceptos, una buena guía sobre concurrrencia es [esta entrega de Objc.io](http://www.objc.io/issue-2/).
 
 
 
